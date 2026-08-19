@@ -1,0 +1,13 @@
+{
+  "name": "TreeWalk NYC",
+  "short_name": "TreeWalk",
+  "description": "Discover New York City's living forest, one tree at a time. Meet the trees, document what you find, and help community grow around them.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f3e8",
+  "theme_color": "#163829",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#163f2b">
+  <title>TreeWalk NYC — Discover the living city</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="styles.css?v=27">
+</head>
+<body class="onboarding">
+  <header class="topbar">
+    <a class="brand-lockup" href="#" aria-label="TreeWalk NYC home">
+      <span class="brand">Tree<b>Walk</b><small>NYC</small></span>
+    </a>
+    <div class="topbar-right">
+      <div class="mode-switch" role="group" aria-label="Choose TreeWalk experience">
+        <button id="community-mode" class="active">Community</button>
+        <button id="kids-mode">Kids</button>
+      </div>
+      <button class="account-button" id="topbar-account-button" aria-label="Account" type="button">👤</button>
+    </div>
+  </header>
+  <div class="walk-score" id="walk-score" aria-live="polite">
+    <span class="walk-hud-time" id="walk-hud-time" hidden></span>
+    <span class="walk-hud-sep" id="walk-hud-sep1" hidden>•</span>
+    <b id="found-count">0</b><span id="found-count-label">trees found</span>
+    <span class="walk-hud-sep" id="walk-hud-sep2" hidden>•</span>
+    <span class="walk-hud-obs" id="walk-hud-obs" hidden></span>
+  </div>
+
+  <main>
+    <section class="welcome" id="welcome">
+      <div class="welcome-card">
+        <div class="welcome-banner" aria-hidden="true">
+          <svg class="skyline-decor" viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+            <rect x="0" y="40" width="34" height="50" fill="currentColor" opacity=".55"/>
+            <rect x="38" y="22" width="26" height="68" fill="currentColor" opacity=".65"/>
+            <rect x="68" y="48" width="30" height="42" fill="currentColor" opacity=".5"/>
+            <line x1="118" y1="90" x2="118" y2="46" stroke="currentColor" stroke-width="3" opacity=".55"/>
+            <line x1="118" y1="60" x2="104" y2="50" stroke="currentColor" stroke-width="2.5" opacity=".55"/>
+            <line x1="118" y1="55" x2="132" y2="44" stroke="currentColor" stroke-width="2.5" opacity=".55"/>
+            <circle cx="150" cy="50" r="26" fill="currentColor" opacity=".6"/>
+            <rect x="145" y="50" width="10" height="40" fill="currentColor" opacity=".6"/>
+            <circle cx="195" cy="42" r="22" fill="currentColor" opacity=".7"/>
+            <rect x="190" y="42" width="10" height="48" fill="currentColor" opacity=".7"/>
+            <rect x="222" y="30" width="28" height="60" fill="currentColor" opacity=".5"/>
+            <rect x="254" y="14" width="24" height="76" fill="currentColor" opacity=".65"/>
+            <circle cx="308" cy="46" r="24" fill="currentColor" opacity=".6"/>
+            <rect x="303" y="46" width="10" height="44" fill="currentColor" opacity=".6"/>
+            <rect x="336" y="36" width="26" height="54" fill="currentColor" opacity=".55"/>
+            <rect x="366" y="52" width="30" height="38" fill="currentColor" opacity=".5"/>
+          </svg>
+          <div class="kids-decor">
+            <span>🌼</span><span>🌷</span><span>🐝</span><span>🌿</span><span>🦋</span><span>🌸</span>
+          </div>
+        </div>
+        <div class="welcome-brand"><span>Tree</span><b>Walk</b><button class="city-chip" id="preview-city-switch" type="button" aria-label="Switch preview city">📍<span id="preview-city-name">NYC</span></button></div>
+        <p class="eyebrow">THE CITY IS A LIVING FOREST</p>
+        <h1>Meet the trees<br>around you.</h1>
+        <p>Discover New York City's living forest, one tree at a time. Meet the trees, document what you find, and help community grow around them.</p>
+        <div class="welcome-modes">
+          <button class="welcome-mode active" data-mode="community"><b>🌳 Community</b><span>Learn, follow &amp; care</span></button>
+          <button class="welcome-mode" data-mode="kids"><b>🌱 Kids</b><span>Find, collect &amp; create</span></button>
+        </div>
+        <button class="primary" id="start-button">Find trees near me</button>
+        <button class="account-link" id="welcome-account-button" type="button">Already have an account? Sign in</button>
+        <p class="privacy">Your location stays on your phone.</p>
+      </div>
+    </section>
+
+    <div id="map" aria-label="Map of nearby New York City trees"></div>
+    <div class="status-pill" id="status" role="status">Finding your neighborhood…</div>
+    <div class="sample-banner" id="sample-banner" hidden>▸ Sample map – not your location</div>
+
+    <button class="map-button locate-button" id="locate-button" aria-label="Return to my location">◎</button>
+    <button class="map-button notebook-button" id="notebook-button" aria-label="Open field notebook" type="button">📔</button>
+    <button class="add-tree-button" id="add-tree-button" type="button">＋ Add a missing tree</button>
+    <button class="map-button lessons-button" id="lessons-button" aria-label="Today's lesson" type="button">🎓</button>
+    <span class="lessons-button-label" aria-hidden="true">STEAM</span>
+
+    <section class="plant-confirm" id="plant-confirm" aria-hidden="true" aria-live="polite">
+      <p class="plant-confirm-title">📍 Drag the pin so it lines up with the tree</p>
+      <p class="plant-confirm-copy">This plants a tree bed on the map. You can add the species and photos after.</p>
+      <div class="plant-type-picker" id="plant-type-picker">
+        <button type="button" class="plant-type-option active" id="plant-type-street" data-type="street">🛣️ Street tree</button>
+        <button type="button" class="plant-type-option" id="plant-type-park" data-type="park">🌳 Park tree</button>
+        <button type="button" class="plant-type-option" id="plant-type-garden" data-type="garden">🏡 Garden tree</button>
+      </div>
+      <label class="cf-field plant-place-field" id="plant-place-field" hidden>
+        <span id="plant-place-label">Which park?</span>
+        <input id="plant-place-name" placeholder="e.g. Blue Playground">
+      </label>
+      <div class="plant-confirm-actions">
+        <button class="text-button" id="plant-cancel-button" type="button">Remove pin</button>
+        <button class="primary plant-confirm-button" id="plant-confirm-button" type="button">🚩 Plant this tree bed</button>
+      </div>
+    </section>
+
+    <section class="plant-confirm plant-reward" id="plant-reward" aria-hidden="true" aria-live="polite">
+      <p class="plant-confirm-title">🌱 Tree bed planted — it's on the map for everyone</p>
+      <p class="plant-confirm-copy">Add species, photos, and health whenever you're ready. Now, or later — up to you.</p>
+      <div class="plant-confirm-actions">
+        <button class="text-button" id="plant-reward-later" type="button">Later</button>
+        <button class="primary plant-confirm-button" id="plant-reward-document" type="button">📷 Document now</button>
+      </div>
+    </section>
+
+    <section class="walk-summary" id="walk-summary" aria-live="polite">
+      <p class="eyebrow">TREES REMEMBERED</p>
+      <h3 id="walk-summary-title">You've remembered some trees</h3>
+      <p id="walk-summary-copy">Save today's trees to find them again, or share this walk for someone else to follow.</p>
+      <label class="cf-field"><span>Name this walk</span><input id="walk-summary-name" placeholder="Sunday oak loop"></label>
+      <div class="notice-row" id="notice-row">
+        <p class="notice-label">What did you notice?</p>
+        <div class="notice-chips">
+          <button type="button" class="notice-chip" data-type="tree" aria-label="Tree that stood out">🌳</button>
+          <button type="button" class="notice-chip" data-type="bloom" aria-label="Bloom noticed">🌸</button>
+          <button type="button" class="notice-chip" data-type="pollinator" aria-label="Pollinator noticed">🐝</button>
+          <button type="button" class="notice-chip" data-type="bird" aria-label="Bird noticed">🐦</button>
+          <button type="button" class="notice-chip" data-type="water" aria-label="Water or soil noticed">💧</button>
+          <button type="button" class="notice-chip" data-type="other" aria-label="Something interesting">✨</button>
+        </div>
+      </div>
+      <button class="primary" id="walk-save">Save this TreeWalk</button>
+      <button class="secondary" id="walk-discard">Discard</button>
+    </section>
+
+    <section class="tree-sheet" id="tree-sheet" aria-live="polite" aria-hidden="true">
+      <button class="close-sheet" id="close-sheet" aria-label="Close tree details">×</button>
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <p class="eyebrow">A TREE NEAR YOU</p>
+      <div class="leaf-stage"><div class="leaf-art" id="leaf-art" role="img" aria-label="Leaf illustration"></div></div>
+      <h2 id="tree-name">Street tree</h2>
+      <p class="latin" id="tree-latin"></p>
+      <p class="tree-intro" id="tree-intro"></p>
+      <div class="species-tags" id="species-tags"></div>
+      <div class="facts">
+        <div><span>📏</span><b id="tree-size">—</b><small>trunk width</small></div>
+        <div><span>💚</span><b id="tree-health">—</b><small>tree health</small></div>
+        <div><span>📍</span><b id="tree-distance">—</b><small>from you</small></div>
+      </div>
+      <div class="look-card"><b>Look closely</b><p id="tree-prompt">What do you notice about its leaves and bark?</p></div>
+      <a class="field-guide-link" href="https://www.nycgovparks.org/pagefiles/144/Street-Tree-ID-Guide-2019__5dbb0cf5d6925.pdf" target="_blank" rel="noopener">Open the official NYC Street Tree ID Guide ↗</a>
+      <section class="kids-panel">
+        <div class="reward-row"><span>Today’s reward</span><b>Earn a seed for finding this tree</b><strong>◉ +1</strong></div>
+        <button class="primary" id="found-button">I found this tree!</button>
+        <button class="secondary" id="activity-button">✎ Print a tree activity sheet</button>
+        <section class="kid-story">
+          <p class="eyebrow">TREE TALK</p>
+          <p id="kid-story-text"></p>
+        </section>
+        <section class="stem-section">
+          <p class="eyebrow">🔍 EVER WONDER WHY?</p>
+          <p class="stem-kicker">Look closer. Here's the science and art hiding in this tree.</p>
+          <div class="stem-bands" id="stem-bands"></div>
+          <p id="stem-text"></p>
+          <div class="stem-art-card"><p class="stem-art-label">🎨 Create something</p><p id="stem-art"></p></div>
+          <p class="stem-credit">Original K–12 activities. Science progresses toward Next Generation Science Standards (NGSS) in the spirit of Project Learning Tree's place-based model; art progresses toward the National Core Arts Standards Creating &amp; Responding anchor standards.</p>
+        </section>
+      </section>
+      <div class="stem-downloads" id="stem-downloads" hidden>
+        <p class="stem-downloads-label">📄 Classroom &amp; activity sheets</p>
+        <div class="stem-downloads-row">
+          <a id="stem-dl-coloring" class="stem-dl" target="_blank" rel="noopener">Coloring sheet</a>
+          <a id="stem-dl-id" class="stem-dl" target="_blank" rel="noopener">Tree ID sheet</a>
+          <a id="stem-dl-lesson" class="stem-dl" target="_blank" rel="noopener">Lesson plan</a>
+        </div>
+      </div>
+      <section class="community-panel">
+        <div class="tree-action-row">
+          <button class="primary remember-tree-button" id="remember-tree-button">★ Remember this tree</button>
+          <button class="secondary" id="document-tree-button">📷 Document this tree</button>
+        </div>
+        <section class="deep-dive" id="deep-dive">
+          <p class="eyebrow">GET TO KNOW THIS TREE</p>
+          <p id="dd-origin"></p>
+          <div class="dd-seasons" id="dd-seasons"></div>
+          <p id="dd-features"></p>
+          <ul class="dd-facts" id="dd-facts"></ul>
+        </section>
+        <div class="care-meter">
+          <div class="care-ring"><b id="care-days">—</b><span>days</span></div>
+          <div><p class="eyebrow">COMMUNITY CARE</p><h3 id="care-title">No watering reported yet</h3><p id="care-copy">Be the first neighbor to care for this tree.</p></div>
+        </div>
+        <div class="care-actions">
+          <button class="primary" id="water-button">💧 I watered this tree</button>
+          <a class="secondary button-link" href="https://tree-map.nycgovparks.org/" target="_blank" rel="noopener">Record official care with NYC Parks ↗</a>
+        </div>
+        <p class="prototype-note">TreeWalk care reports are saved on this device for this prototype. They are not yet submitted to NYC Parks.</p>
+        <section class="sponsor-section" id="sponsor-section">
+          <button class="sponsor-summary" id="sponsor-summary" type="button">
+            <span id="sponsor-summary-icon">🌱</span>
+            <span class="sponsor-summary-text" id="sponsor-summary-text">Help this tree bed grow</span>
+            <span class="sponsor-summary-arrow">Explore stewardship →</span>
+          </button>
+          <div class="sponsor-detail" id="sponsor-detail" hidden>
+          <p class="eyebrow">TREE BED STEWARDSHIP</p>
+          <div id="sponsor-unclaimed">
+            <p class="sponsor-copy">No one's gotten involved with this tree bed yet. Get involved to start a crowdfunding campaign for a guard, soil, and plantings — TreeWalk never touches the money. Everything runs through your own GoFundMe.</p>
+            <button class="secondary" id="claim-bed-button">🌳 Get involved</button>
+            <div id="sponsor-claim-form" hidden>
+              <label class="cf-field"><span>Who's getting involved?</span>
+                <div class="sponsor-type-row">
+                  <button type="button" class="sponsor-type-btn active" data-type="individual">🙋 Just me</button>
+                  <button type="button" class="sponsor-type-btn" data-type="business">🏢 My business</button>
+                  <button type="button" class="sponsor-type-btn" data-type="open">🤝 Open — anyone can join</button>
+                </div>
+              </label>
+              <label class="cf-field"><span>Your name or business name</span><input id="sponsor-name-input" placeholder="e.g. Maya, or Corner Bodega"></label>
+              <div id="sponsor-campaign-fields" hidden>
+                <label class="cf-field"><span>What kind of guard are you funding?</span>
+                  <div class="sponsor-type-row">
+                    <button type="button" class="sponsor-guard-btn active" data-guard="diy" data-cost="150">🔨 DIY guard (~$150)</button>
+                    <button type="button" class="sponsor-guard-btn" data-guard="official" data-cost="900">🏛️ Official Parks guard (~$900)</button>
+                  </div>
+                </label>
+                <label class="cf-field"><span>Founding goal ($)</span><input id="sponsor-threshold-input" type="number" min="20" value="150"></label>
+                <label class="cf-field"><span>GoFundMe link (add now or later)</span><input id="sponsor-url-input" placeholder="https://gofundme.com/f/..."></label>
+              </div>
+              <p class="prototype-note" id="sponsor-captain-note">Starting a funding campaign is reserved for verified Tree Care Captains. Getting involved here still adds you to this tree bed's list — you can add a campaign later once you're verified.</p>
+              <button class="primary" id="sponsor-claim-submit">Get involved</button>
+              <button class="text-button" id="sponsor-claim-cancel">Cancel</button>
+            </div>
+          </div>
+          <div id="sponsor-claimed" hidden>
+            <div class="sponsor-header">
+              <span class="sponsor-tier-badge" id="sponsor-tier-badge">🌱</span>
+              <div>
+                <b id="sponsor-tier-label">Founding round</b>
+                <p id="sponsor-claimant"></p>
+              </div>
+            </div>
+            <div class="sponsor-progress"><span class="sponsor-progress-fill" id="sponsor-progress-fill"></span></div>
+            <p id="sponsor-progress-label"></p>
+            <div class="sponsor-stewards"><b>Founding stewards</b><p id="sponsor-stewards-list">—</p></div>
+            <div class="sponsor-actions">
+              <a class="secondary button-link" id="sponsor-gofundme-link" href="#" target="_blank" rel="noopener" hidden>View the GoFundMe campaign ↗</a>
+              <button class="secondary" id="sponsor-join-button">🙋 Get involved</button>
+              <button class="secondary" id="sponsor-invite-button">📣 Invite a neighbor</button>
+              <button class="secondary" id="sponsor-update-button">✏️ Update amount raised</button>
+              <button class="secondary" id="sponsor-link-button">🔗 Add/update GoFundMe link</button>
+            </div>
+          </div>
+          <p class="prototype-note">Stewardship involvement and totals are self-reported and saved on this device for this prototype. TreeWalk never holds funds — campaigns run entirely through the sponsor's own GoFundMe.</p>
+          <div class="captain-card">
+            <p class="captain-card-title">🌳 Want to do more? Become a Tree Care Captain.</p>
+            <p class="captain-card-copy">NYC Parks trains volunteers to independently care for street trees — attend a stewardship event, an intro workshop, and hands-on training, and you can start funding campaigns for tree beds right here in TreeWalk.</p>
+            <a class="secondary button-link" href="https://www.nycgovparks.org/reg/advanced-stewardship" target="_blank" rel="noopener">Learn how to become a Care Captain ↗</a>
+            <a class="secondary button-link" href="https://www.nycgovparks.org/reg/stewardship" target="_blank" rel="noopener">Find a volunteer event ↗</a>
+          </div>
+          </div>
+        </section>
+      </section>
+      <p class="tree-verification-status" id="tree-verification-status" hidden></p>
+      <button class="secondary verify-tree-button" id="verify-tree-button" type="button" hidden>✓ Confirm this tree</button>
+      <p class="address" id="tree-address"></p>
+      <button class="text-button remove-tree-button" id="remove-tree-button" type="button" hidden>Remove this tree bed</button>
+    </section>
+
+    <section class="challenge" id="challenge" aria-live="polite">
+      <span>Today’s challenge</span><b>Find 3 different trees</b>
+      <div class="challenge-dots"><i></i><i></i><i></i></div>
+      <button class="challenge-report-btn" id="challenge-report-btn" type="button" hidden>Found it! ✓</button>
+    </section>
+
+    <section class="walk-summary" id="guess-panel" aria-live="polite">
+      <p class="eyebrow">MYSTERY TREE</p>
+      <h3 id="guess-heading">Is this a Pin Oak?</h3>
+      <p id="guess-clue">Look closely at its leaves, bark, and shape.</p>
+      <p id="guess-feedback" class="guess-feedback" hidden></p>
+      <button class="primary" id="guess-yes">Yes, I think so</button>
+      <button class="secondary" id="guess-no">No, something else</button>
+      <button class="text-button" id="guess-skip">Skip for now</button>
+    </section>
+
+    <section class="walk-summary" id="round-summary" aria-live="polite">
+      <p class="eyebrow">ROUND COMPLETE</p>
+      <h3 id="round-summary-title">You found some trees</h3>
+      <p id="round-summary-copy"></p>
+      <button class="primary" id="round-summary-close">Done</button>
+    </section>
+
+    <section class="walk-summary notebook-sheet" id="notebook" aria-live="polite">
+      <button class="close-sheet" id="notebook-close" aria-label="Close field notebook" type="button">×</button>
+      <p class="eyebrow">FIELD NOTEBOOK</p>
+      <h3 id="nb-title">Your Forest</h3>
+      <div class="nb-seeds-hero"><span class="nb-seeds-icon">🌱</span><b id="nb-seeds-count">0</b><span>seeds — your record in the living forest</span></div>
+      <div class="nb-stats">
+        <div><b id="nb-species-count">0 / 24</b><span>species found</span></div>
+        <div><b id="nb-observations-count">0</b><span>observations</span></div>
+        <div><b id="nb-added-count">0</b><span>trees added</span></div>
+        <div><b id="nb-sponsor-count">0</b><span>tree beds claimed</span></div>
+      </div>
+      <p class="eyebrow nb-subhead">RECENT OBSERVATIONS</p>
+      <div class="nb-type-breakdown" id="nb-type-breakdown"></div>
+      <p class="eyebrow nb-subhead">BADGES</p>
+      <div class="nb-badges" id="nb-badges"></div>
+      <div class="nb-sync-cta" id="nb-sync-cta">
+        <p>Create a free account to save this logbook across devices — and see what others are discovering nearby.</p>
+        <button class="secondary" id="nb-sync-button" type="button">Save my logbook</button>
+      </div>
+      <p class="nb-synced-note" id="nb-synced-note" hidden>☁️ <span id="nb-synced-name">Synced to your account</span></p>
+    </section>
+
+    <section class="capture-flow lessons-flow" id="lessons-flow" hidden aria-label="TreeWalk lessons">
+      <button class="cf-close" id="lessons-close" aria-label="Close lessons">×</button>
+      <div id="lessons-picker">
+        <p class="cf-eyebrow">TODAY'S LESSONS</p>
+        <h1 class="cf-title">Ten minutes. No map needed.</h1>
+        <p class="lessons-picker-intro">New here? Start with Meet Your First Trees — you'll learn each one before any quiz.</p>
+        <div class="lessons-unit-list">
+          <button type="button" class="lessons-unit-card" data-lesson-unit="chunk-1">
+            <b>🌳 Meet Your First Trees</b>
+            <span>Learn each tree, then a quick check — 8 trees to start.</span>
+            <small class="lessons-card-best">Not started yet</small>
+          </button>
+          <button type="button" class="lessons-unit-card" data-lesson-unit="meet-the-trees">
+            <b>🌳 Meet the Trees</b>
+            <span>Quiz — guess the tree from its leaf. 8 quick rounds.</span>
+            <small class="lessons-card-best">Not played yet</small>
+          </button>
+          <button type="button" class="lessons-unit-card" data-lesson-unit="read-a-tree">
+            <b>📖 Read a Tree</b>
+            <span>Quiz — true or false, does this fact match this tree?</span>
+            <small class="lessons-card-best">Not played yet</small>
+          </button>
+        </div>
+      </div>
+      <div id="lessons-round" hidden>
+        <p class="cf-eyebrow" id="lessons-round-title">Meet the Trees</p>
+        <div class="cf-progress"><i id="lessons-progress-bar"></i></div>
+        <p class="lessons-progress-label" id="lessons-progress-label">1 of 8</p>
+        <div id="lessons-question-body"></div>
+      </div>
+      <div id="lessons-done" hidden>
+        <p class="cf-eyebrow">ROUND COMPLETE</p>
+        <h1 class="cf-title" id="lessons-done-score">6 / 8</h1>
+        <p class="lessons-picker-intro">Seeds earned for every correct answer.</p>
+        <button class="primary" id="lessons-done-retry">Play again</button>
+        <button class="secondary" id="lessons-done-back">Back to lessons</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="cityAdapters.js?v=27"></script>
+  <script src="curriculum.js?v=27"></script>
+  <script src="speciesDeepDive.js?v=27"></script>
+  <script src="app.js?v=27"></script>
+  <script src="kidsLessons.js?v=27"></script>
+  <script src="cloud-config.js?v=27"></script>
+  <script src="cloud-sync.js?v=27"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+      // 2026-08-19: without this, a new deploy's service worker installs and
+      // activates in the background (it already skipWaiting()s), but the
+      // page a person already has open keeps running on the OLD controller
+      // until they manually reload — sometimes more than once — since the
+      // browser doesn't do that automatically. That's the exact "why do I
+      // see an old/broken version" gap this app has hit before (see
+      // incident-2026-08-14-wrong-deploy-and-fixes.md and the tree-count
+      // regression flagged the same night as deploy26). One auto-reload the
+      // moment a new service worker actually takes control closes it — the
+      // refreshing guard stops a reload loop if control changes more than
+      // once in a session.
+      let swRefreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (swRefreshing) return;
+        swRefreshing = true;
+        location.reload();
+      });
+    }
+  </script>
+</body>
+</html>

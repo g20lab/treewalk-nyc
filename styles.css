@@ -1,0 +1,390 @@
+:root{--forest:#163f2b;--leaf:#35a853;--lime:#dff26a;--cream:#f6f2e8;--ink:#173126;--white:#fff;--shadow:0 16px 50px rgba(12,45,29,.22)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:ui-rounded,"SF Pro Rounded","Avenir Next",system-ui,sans-serif;color:var(--ink);background:var(--cream)}button{font:inherit}body{overflow:hidden}.topbar{position:fixed;z-index:900;top:0;left:0;right:0;height:72px;padding:max(14px,env(safe-area-inset-top)) 18px 10px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(246,242,232,.97),rgba(246,242,232,.83),transparent)}.brand{font-weight:900;font-size:25px;letter-spacing:-1.3px;color:var(--forest);text-decoration:none}.brand span{color:var(--leaf)}.walk-score{position:fixed;z-index:2100;top:max(14px,env(safe-area-inset-top));right:16px;background:var(--white);border:1px solid rgba(22,63,43,.12);border-radius:99px;padding:7px 12px;display:flex;gap:6px;align-items:baseline;box-shadow:0 4px 16px rgba(22,63,43,.08)}.walk-score b{font-size:16px}.walk-score span{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+body.onboarding .topbar{display:none}.welcome{position:fixed;z-index:2000;inset:0;display:grid;place-items:end center;background:radial-gradient(circle at 70% 8%,#78bf72 0 15%,transparent 35%),linear-gradient(150deg,#234e35,#0d2c20);padding:18px}.welcome.hidden{display:none}.welcome-card{width:min(100%,480px);background:var(--cream);border-radius:32px;padding:24px 24px calc(22px + env(safe-area-inset-bottom));box-shadow:var(--shadow);text-align:left}.tree-badge{width:66px;height:66px;border-radius:22px;background:var(--lime);display:grid;place-items:center;font-size:36px;transform:rotate(-4deg)}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.15em;color:var(--leaf);margin:18px 0 7px}.welcome h1{font-size:clamp(41px,11vw,58px);line-height:.91;letter-spacing:-.055em;margin:0 0 18px}.welcome-card>p:not(.eyebrow):not(.privacy){font-size:17px;line-height:1.45;margin-bottom:22px}.primary{width:100%;border:0;border-radius:16px;padding:16px 18px;background:var(--forest);color:white;font-weight:850;font-size:16px;cursor:pointer;box-shadow:0 7px 18px rgba(22,63,43,.22)}.primary:active{transform:translateY(1px)}.text-button{display:block;margin:13px auto 0;border:0;background:transparent;color:var(--forest);font-weight:750;text-decoration:underline;cursor:pointer}.privacy{text-align:center;font-size:11px;opacity:.55;margin:12px 0 0}.leaflet-container{width:100%;height:100%;background:#dce8d5}.leaflet-tile-pane{filter:saturate(.62) contrast(.9) brightness(1.06)}.tree-marker{width:30px;height:30px;border-radius:50% 50% 48% 52%;display:grid;place-items:center;background:var(--leaf);border:3px solid white;box-shadow:0 4px 12px rgba(13,44,32,.28);font-size:16px}.user-dot{width:20px;height:20px;background:#2a76e8;border:4px solid white;border-radius:50%;box-shadow:0 0 0 10px rgba(42,118,232,.16)}.status-pill{position:fixed;z-index:800;top:76px;left:50%;transform:translateX(-50%);background:var(--forest);color:white;border-radius:99px;padding:9px 14px;font-size:12px;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.18);white-space:nowrap;transition:.25s}.status-pill.hide{opacity:0;pointer-events:none}.map-button{position:fixed;z-index:850;border:0;box-shadow:0 6px 20px rgba(18,49,38,.2);background:white;color:var(--forest);font-weight:850;cursor:pointer}.locate-button{right:16px;bottom:116px;width:50px;height:50px;border-radius:50%;font-size:27px}.tree-sheet{position:fixed;z-index:1500;left:0;right:0;bottom:0;max-height:82vh;overflow:auto;background:var(--cream);border-radius:28px 28px 0 0;padding:12px 22px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -16px 45px rgba(12,45,29,.25);transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}.tree-sheet.open{transform:translateY(0)}.sheet-handle{width:44px;height:5px;border-radius:99px;background:#c9c9bd;margin:0 auto}.close-sheet{position:absolute;right:16px;top:13px;width:38px;height:38px;border-radius:50%;border:0;background:white;font-size:25px;color:var(--forest)}.tree-sheet .eyebrow{text-align:center;margin-top:15px}.tree-portrait{width:74px;height:74px;margin:0 auto -2px;border-radius:24px;display:grid;place-items:center;background:var(--lime);font-size:42px}.tree-sheet h2{text-align:center;font-size:31px;letter-spacing:-.04em;margin:9px 0 0;text-transform:capitalize}.latin{text-align:center;font-style:italic;opacity:.58;margin:4px}.tree-intro{text-align:center;font-size:16px;line-height:1.4;margin:13px auto 16px;max-width:420px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.facts div{background:white;border-radius:16px;padding:12px 6px;text-align:center}.facts span,.facts b,.facts small{display:block}.facts span{font-size:20px}.facts b{font-size:14px;margin:4px 0}.facts small{font-size:9px;text-transform:uppercase;letter-spacing:.07em;opacity:.58}.look-card{background:#e6efcb;border-radius:16px;padding:13px 15px;margin:12px 0}.look-card b{font-size:12px;text-transform:uppercase;letter-spacing:.08em}.look-card p{margin:4px 0 0;line-height:1.35}.address{text-align:center;font-size:11px;opacity:.58;margin-bottom:0}.challenge{position:fixed;z-index:820;left:50%;bottom:14px;transform:translateX(-50%);width:min(calc(100% - 28px),440px);background:rgba(255,255,255,.94);border-radius:18px;padding:11px 14px;box-shadow:0 7px 24px rgba(22,63,43,.17);display:grid;grid-template-columns:1fr auto;align-items:center}.challenge span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--leaf);font-weight:900}.challenge b{grid-row:2}.challenge-dots{grid-column:2;grid-row:1/3;display:flex;gap:5px}.challenge-dots i{width:13px;height:13px;border-radius:50%;background:#d9ddd6}.challenge-dots i.done{background:var(--leaf)}
+@media(min-width:700px){.tree-sheet{left:auto;right:18px;bottom:18px;width:410px;border-radius:28px;max-height:calc(100vh - 100px)}.locate-button{bottom:86px}.challenge{bottom:14px}.welcome{place-items:center}.welcome-card{padding:34px}}
+
+/* Keep the map tied to the viewport; percentage height alone collapses inside main. */
+main{position:fixed;inset:0}
+#map.leaflet-container{position:absolute;inset:0;width:100%;height:100vh;height:100dvh}
+
+/* V2: two connected experiences */
+.topbar{gap:12px}.mode-switch{display:flex;background:rgba(255,255,255,.9);padding:4px;border-radius:99px;box-shadow:0 5px 18px rgba(22,63,43,.1)}.mode-switch button{border:0;background:transparent;border-radius:99px;padding:8px 12px;color:var(--forest);font-size:11px;font-weight:850;cursor:pointer}.mode-switch button.active{background:var(--forest);color:white}.welcome-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:-8px 0 16px}.welcome-mode{border:2px solid transparent;background:white;border-radius:16px;padding:12px;text-align:left;color:var(--forest);cursor:pointer}.welcome-mode.active{border-color:var(--leaf);background:#eef6dc}.welcome-mode b,.welcome-mode span{display:block}.welcome-mode span{font-size:11px;margin-top:3px;opacity:.7}.leaf-stage{width:144px;height:128px;margin:2px auto -7px;border-radius:28px;background:#f8f3e5;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(22,63,43,.08)}.leaf-art{width:100%;height:100%;background-image:url('assets/nyc-leaf-guide.png');background-repeat:no-repeat;background-size:500% 100%;background-position:0 50%}.species-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}.species-tags span{padding:6px 9px;border-radius:99px;background:#e4eadc;color:var(--forest);font-size:10px;font-weight:800}.secondary{display:block;width:100%;border:1px solid rgba(22,63,43,.18);border-radius:15px;padding:13px 16px;background:white;color:var(--forest);font-weight:800;text-align:center;cursor:pointer;margin-top:9px}.button-link{text-decoration:none}.reward-row{display:grid;grid-template-columns:1fr auto;align-items:center;background:#e6efcb;border-radius:16px;padding:11px 13px;margin:12px 0}.reward-row span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--leaf);font-weight:900}.reward-row b{grid-row:2;font-size:13px}.reward-row strong{grid-column:2;grid-row:1/3;font-size:19px}.care-meter{display:grid;grid-template-columns:70px 1fr;gap:13px;align-items:center;background:white;border-radius:19px;padding:13px;margin:12px 0}.care-ring{width:66px;height:66px;border-radius:50%;border:7px solid #bde3d0;display:grid;place-content:center;text-align:center}.care-ring b{font-size:20px;line-height:1}.care-ring span{font-size:9px;text-transform:uppercase}.care-meter .eyebrow{margin:0 0 3px;text-align:left}.care-meter h3{font-size:15px;margin:0}.care-meter p:not(.eyebrow){font-size:11px;margin:4px 0 0;opacity:.65}.prototype-note{font-size:10px;line-height:1.35;text-align:center;opacity:.55}.kids-panel{display:none}body[data-mode="kids"] .kids-panel{display:block}body[data-mode="kids"] .community-panel{display:none}body[data-mode="kids"] .tree-sheet{background:#f8f1d8}body[data-mode="kids"] .tree-sheet .eyebrow{color:#e87938}body[data-mode="kids"] .leaf-stage{background:#fff8e8;transform:rotate(-1deg)}body[data-mode="kids"] .look-card{background:#ffe3a3}.community-panel{display:block}
+@media(max-width:520px){.mode-switch{position:fixed;top:67px;left:50%;transform:translateX(-50%)}.topbar{height:112px;align-items:flex-start}.status-pill{top:116px}.tree-sheet{padding-top:15px}.leaf-stage{width:120px;height:105px}}
+@media(min-width:700px){.tree-sheet{width:440px}.leaf-stage{width:155px;height:135px}}
+.field-guide-link{display:block;text-align:center;color:var(--forest);font-size:11px;font-weight:800;margin:9px 0 12px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.account-button{border:0;background:rgba(255,255,255,.9);border-radius:50%;width:36px;height:36px;font-size:16px;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(22,63,43,.1)}
+
+/* Official NYC Parks guide leaf assets replace the provisional generated strip. */
+.leaf-art{width:100%;height:100%;background-image:none;background-repeat:no-repeat;background-size:contain;background-position:center;display:grid;place-items:center;color:#7b877e;font-size:11px;font-weight:800;text-align:center;padding:12px}
+.leaf-art.missing{background:#edf0e8}
+.species-tags{display:none!important}
+.brand small,.welcome-brand small{font-size:.48em;letter-spacing:-.02em;margin-left:1px}.welcome-brand{font-size:22px;font-weight:950;letter-spacing:-1px;color:var(--forest);margin-bottom:16px}.welcome-brand span{color:var(--leaf)}
+.city-chip{display:inline-flex;align-items:center;gap:3px;vertical-align:middle;margin-left:8px;border:0;border-radius:99px;padding:5px 11px 5px 9px;background:rgba(22,63,43,.08);color:var(--forest);font-size:12px;font-weight:800;letter-spacing:0;cursor:pointer}
+.city-chip:active{background:rgba(22,63,43,.15)}
+body[data-mode="kids"] .city-chip{color:var(--forest);background:rgba(255,255,255,.55)}
+.account-link{display:block;width:fit-content;margin:14px auto 0;border:0;border-radius:99px;padding:9px 16px;background:rgba(53,168,83,.14);color:var(--forest);font-weight:800;font-size:12px;text-decoration:none;cursor:pointer}
+.account-link:active{background:rgba(53,168,83,.24)}
+.welcome-banner{height:86px;border-radius:22px;margin-bottom:14px;overflow:hidden;position:relative;background:radial-gradient(circle at 70% 8%,#78bf72 0 15%,transparent 35%),linear-gradient(150deg,#e9f3df,#dcecd0)}
+.welcome-banner .skyline-decor{position:absolute;inset:0;width:100%;height:100%;color:var(--forest)}
+.welcome-banner .kids-decor{display:none;position:absolute;inset:0;align-items:center;justify-content:space-evenly;font-size:34px}
+body[data-mode="kids"] .welcome{background:radial-gradient(circle at 70% 8%,#fbcfe8 0 15%,transparent 35%),linear-gradient(150deg,#8b3ce0,#ec4899)}
+body[data-mode="kids"] .welcome-banner{height:96px;background:linear-gradient(135deg,#fef3c7,#fbcfe8,#e9d5ff)}
+body[data-mode="kids"] .welcome-banner .skyline-decor{display:none}
+body[data-mode="kids"] .welcome-banner .kids-decor{display:flex}
+body[data-mode="kids"] .welcome h1::after{content:" 🌸"}
+body[data-mode="kids"] .walk-score b{color:#ec4899}
+
+/* V3: TreeWalk NYC rebrand + missing-tree documentation + PWA */
+.brand-lockup{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.brand-lockup .brand{font-weight:900;font-size:22px;letter-spacing:-1px;color:var(--forest)}
+.brand-lockup .brand b{color:var(--leaf);font-weight:900}
+.brand-lockup .brand small{font-size:.42em;letter-spacing:.04em;margin-left:3px;color:var(--ink);opacity:.6;vertical-align:middle}
+.welcome-brand span{color:var(--forest)}.welcome-brand b{color:var(--leaf)}
+.sample-banner{position:fixed;z-index:800;top:76px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.94);color:var(--ink);border-radius:99px;padding:8px 16px;font-size:11px;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.14);text-decoration:underline;white-space:nowrap}
+.add-tree-button{position:fixed;z-index:850;left:16px;bottom:116px;border:0;border-radius:99px;padding:14px 18px;background:var(--forest);color:white;font-weight:850;font-size:13px;box-shadow:0 8px 22px rgba(18,49,38,.3);cursor:pointer}
+@media(min-width:700px){.add-tree-button{bottom:86px}}
+
+.capture-flow{position:fixed;z-index:2600;inset:0;background:var(--cream);overflow:auto;padding:calc(20px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.capture-flow.open{transform:translateY(0)}
+.capture-flow .cf-topbar{display:flex;justify-content:center;margin-bottom:6px}
+.cf-eyebrow{text-align:center;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--leaf);margin:6px 0 2px}
+.cf-title{text-align:center;font-size:30px;font-weight:900;letter-spacing:-.03em;margin:0 0 14px}
+.cf-progress{height:6px;border-radius:99px;background:#e4e2d6;overflow:hidden;margin-bottom:8px}
+.cf-progress i{display:block;height:100%;background:var(--leaf);width:0%;transition:width .25s}
+.cf-progress-label{text-align:center;font-size:11px;font-weight:800;opacity:.6;margin-bottom:18px}
+.cf-row{display:flex;align-items:center;gap:14px;background:white;border-radius:18px;padding:14px 16px;margin-bottom:12px;box-shadow:0 3px 10px rgba(22,63,43,.06)}
+.cf-row.done{outline:2px solid var(--leaf)}
+.cf-num{width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:#e6efcb;color:var(--forest);display:grid;place-items:center;font-weight:900;font-size:15px;overflow:hidden}
+.cf-num img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.cf-row-body{flex:1;min-width:0}
+.cf-row-body b{display:block;font-size:15px}
+.cf-row-body span{display:block;font-size:12px;opacity:.62;margin-top:2px}
+.cf-take{border:0;background:transparent;color:var(--leaf);font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap}
+.cf-actions{display:flex;gap:10px;margin-top:8px}
+.cf-actions .secondary{margin-top:0}
+.cf-status{text-align:center;font-size:12px;font-weight:700;opacity:.7;margin:10px 0}
+.cf-status.error{color:#c14b3a}
+.cf-fields{margin:14px 0}
+.cf-field{display:block;margin-bottom:10px}
+.cf-field[hidden]{display:none}
+.cf-field span{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.6;margin-bottom:4px}
+.cf-field input,.cf-field textarea{width:100%;border:1px solid rgba(22,63,43,.18);border-radius:12px;padding:11px 13px;font:inherit;background:white}
+.cf-field textarea{min-height:72px;resize:vertical}
+.cf-close{position:fixed;right:16px;top:calc(16px + env(safe-area-inset-top));width:38px;height:38px;border-radius:50%;border:0;background:white;font-size:22px;color:var(--forest);z-index:2601;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.cf-tabs{display:flex;justify-content:center;gap:6px;background:rgba(255,255,255,.9);padding:4px;border-radius:99px;margin:0 auto 18px;width:fit-content}
+.cf-tabs button{border:0;background:transparent;border-radius:99px;padding:8px 14px;color:var(--forest);font-size:12px;font-weight:850;cursor:pointer}
+.cf-tabs button.active{background:var(--forest);color:white}
+.cf-list-item{background:white;border-radius:16px;padding:12px 15px;margin-bottom:10px;display:flex;flex-direction:column;gap:2px}
+.cf-list-item .pill{align-self:flex-start;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--leaf);background:#e6efcb;border-radius:99px;padding:3px 9px;margin-top:4px}
+.cf-empty{text-align:center;opacity:.55;padding:30px 0}
+.cf-view-photos{border:none;background:var(--forest);color:#fff;font-weight:800;font-size:13px;padding:7px 14px;border-radius:99px;cursor:pointer}
+.cf-view-photos:active{opacity:.85}
+.cf-item-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cf-item-link{border:none;background:#eef2e6;color:var(--forest);font-weight:800;font-size:13px;padding:7px 14px;border-radius:99px;cursor:pointer}
+.cf-item-link:active{opacity:.85}
+.cf-item-remove{background:#fbe9e7;color:#b3401f}
+.cf-add-tree{display:block;width:100%;border:none;background:var(--leaf);color:#fff;font-weight:900;font-size:14px;padding:12px;border-radius:16px;cursor:pointer;margin-bottom:14px}
+.cf-add-tree:active{opacity:.88}
+.photo-viewer{position:fixed;inset:0;z-index:4000;background:rgba(12,25,18,.92);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.photo-viewer[hidden]{display:none}
+.pv-close{position:fixed;top:16px;right:18px;background:none;border:none;color:#fff;font-size:34px;line-height:1;cursor:pointer;z-index:4001}
+.pv-grid{width:100%;max-width:560px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:auto}
+.pv-grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:#1c2b21}
+.pv-status{grid-column:1/-1;color:#fff;text-align:center;opacity:.85;padding:30px 10px}
+
+/* Kids mode: a garden-party palette (violet/pink/gold), matched to the live TreeWalk NYC Kids build —
+   not a recolor, a different feel: gradient buttons, playful type, flower accents on the map. */
+body[data-mode="kids"]{--forest:#7c3aed;--leaf:#ec4899;--lime:#fde68a;--ink:#2d1b45;--kids-grad:linear-gradient(135deg,#8b3ce0,#ec4899)}
+body[data-mode="kids"] .topbar{background:linear-gradient(180deg,rgba(255,247,224,.97),rgba(252,231,243,.85),transparent)}
+body[data-mode="kids"] .brand-lockup .brand{background:var(--kids-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+body[data-mode="kids"] .brand-lockup .brand b{background:none;-webkit-text-fill-color:currentColor;color:#2d1b45}
+body[data-mode="kids"] .mode-switch button.active{background:var(--kids-grad)}
+body[data-mode="kids"] .status-pill{background:var(--kids-grad)}
+body[data-mode="kids"] .primary{background:var(--kids-grad);box-shadow:0 8px 20px rgba(139,60,224,.35)}
+body[data-mode="kids"] .add-tree-button{background:var(--kids-grad);box-shadow:0 8px 22px rgba(139,60,224,.4)}
+body[data-mode="kids"] .care-ring{border-color:#f5d0fe}
+body[data-mode="kids"] .look-card,body[data-mode="kids"] .reward-row{background:linear-gradient(120deg,#fde68a,#fbcfe8)}
+body[data-mode="kids"] .species-tags span{background:#fae8ff;color:#7c3aed}
+body[data-mode="kids"] .challenge{background:linear-gradient(120deg,#fef3c7,#fbcfe8)}
+body[data-mode="kids"] .challenge span{color:#ec4899}
+body[data-mode="kids"] .challenge-dots i{background:#e9d5ff}
+body[data-mode="kids"] .challenge-dots i.done{background:#7c3aed}
+body[data-mode="kids"] .tree-marker{background:radial-gradient(circle at 30% 30%,#f472b6,#7c3aed)}
+body[data-mode="kids"] .welcome-mode.active{border-color:#ec4899;background:#fdf2ff}
+body[data-mode="kids"] .welcome-brand{background:var(--kids-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+body[data-mode="kids"] .eyebrow{color:#ec4899}
+body[data-mode="kids"] .found-button,body[data-mode="kids"] .water-button{background:var(--kids-grad)}
+
+/* STEAM connection card (Kids mode only) */
+.stem-section{display:none;background:#faf5ff;border-radius:16px;padding:13px 15px;margin-top:12px}
+body[data-mode="kids"] .stem-section{display:block}
+.stem-section .eyebrow{margin:0 0 8px;text-align:left;color:#7c3aed}
+.stem-kicker{font-size:13px;line-height:1.4;margin:0 0 10px;opacity:.75}
+
+/* Remember this tree / Document this tree (Community mode) */
+.tree-action-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 0}
+.tree-action-row .remember-tree-button,.tree-action-row #document-tree-button{margin:0;width:100%}
+.remember-tree-button{background:var(--forest)}
+.remember-tree-button.remembered{background:#35a853}
+
+/* Species deep-dive (Community mode) */
+.deep-dive{background:white;border-radius:19px;padding:15px 16px;margin:12px 0}
+.deep-dive .eyebrow{margin:0 0 8px;text-align:left}
+#dd-origin{margin:0 0 10px;line-height:1.45;font-size:14px}
+.dd-seasons{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
+.dd-season{background:#eef6dc;border-radius:12px;padding:8px 10px}
+.dd-season b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--leaf);margin-bottom:2px}
+.dd-season span{font-size:12px;line-height:1.35;display:block}
+#dd-features{margin:0 0 10px;line-height:1.45;font-size:14px;opacity:.9}
+.dd-facts{margin:0;padding-left:18px;font-size:13px;line-height:1.5}
+.dd-facts li{margin-bottom:6px}
+
+/* Kid Tree Talk card (Kids mode only) */
+.kid-story{display:none;background:#fff8e8;border-radius:16px;padding:13px 15px;margin-top:12px}
+body[data-mode="kids"] .kid-story{display:block}
+.kid-story .eyebrow{margin:0 0 8px;text-align:left;color:#ec4899}
+#kid-story-text{margin:0;line-height:1.5;font-size:15px}
+.stem-bands{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.stem-band{border:0;background:white;border-radius:99px;padding:6px 10px;font-size:11px;font-weight:850;color:#7c3aed;cursor:pointer}
+.stem-band.active{background:var(--kids-grad);color:white}
+#stem-text{font-size:13px;line-height:1.45;margin:0 0 8px}
+.stem-art-card{background:white;border-radius:12px;padding:10px 12px;margin:0 0 10px;border:1px dashed #c4b5fd}
+.stem-art-label{font-size:11px;font-weight:850;color:#7c3aed;margin:0 0 4px}
+#stem-art{font-size:13px;line-height:1.45;margin:0}
+.stem-downloads{background:#faf5ff;border-radius:16px;padding:13px 15px;margin:12px 0}
+.stem-downloads-label{font-size:11px;font-weight:850;color:#7c3aed;margin:0 0 8px;text-transform:uppercase;letter-spacing:.03em}
+.stem-downloads-row{display:flex;flex-wrap:wrap;gap:6px}
+.stem-dl{background:white;border:1px solid #c4b5fd;color:#7c3aed;border-radius:99px;padding:7px 12px;font-size:11px;font-weight:800;text-decoration:none}
+.stem-credit{font-size:10px;opacity:.55;margin:0;line-height:1.3}
+
+/* Tree bed sponsorship (Community mode) */
+.sponsor-section{background:white;border-radius:19px;padding:14px 16px;margin:12px 0}
+.sponsor-section .eyebrow{margin:0 0 8px;text-align:left}
+.sponsor-summary{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.sponsor-summary-icon,#sponsor-summary-icon{font-size:20px}
+.sponsor-summary-text{flex:1;font-size:13px;font-weight:700}
+.sponsor-summary-arrow{font-size:11px;font-weight:800;color:var(--forest);white-space:nowrap}
+.sponsor-detail{margin-top:14px;padding-top:14px;border-top:1px solid rgba(22,63,43,.08)}
+.captain-card{background:#eef6dc;border-radius:14px;padding:13px 14px;margin-top:12px}
+.captain-card-title{font-size:13px;font-weight:800;margin:0 0 6px}
+.captain-card-copy{font-size:12px;line-height:1.45;opacity:.8;margin:0 0 10px}
+.captain-card .button-link{display:inline-block;margin:0 6px 6px 0;padding:7px 12px;font-size:11px}
+.sponsor-copy{font-size:13px;line-height:1.45;margin:0 0 12px;opacity:.75}
+.sponsor-type-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.sponsor-type-btn,.sponsor-guard-btn{border:1px solid rgba(22,63,43,.18);background:white;border-radius:99px;padding:8px 12px;font-size:11px;font-weight:800;color:var(--forest);cursor:pointer}
+.sponsor-type-btn.active,.sponsor-guard-btn.active{background:var(--forest);color:white;border-color:var(--forest)}
+#sponsor-claim-form{margin-top:10px;border-top:1px solid rgba(22,63,43,.1);padding-top:12px}
+.sponsor-header{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;margin-bottom:10px}
+.sponsor-tier-badge{width:44px;height:44px;border-radius:50%;background:#e6efcb;display:grid;place-items:center;font-size:22px}
+.sponsor-header b{display:block;font-size:15px}
+.sponsor-header p{margin:2px 0 0;font-size:11px;opacity:.65}
+.sponsor-progress{display:block;height:8px;border-radius:99px;background:#e4e2d6;overflow:hidden;margin:6px 0}
+.sponsor-progress-fill{display:block;height:100%;background:var(--leaf);width:0%;transition:width .3s}
+#sponsor-progress-label{font-size:11px;font-weight:700;opacity:.65;margin:0 0 10px}
+.sponsor-stewards{background:#eef6dc;border-radius:12px;padding:9px 11px;margin-bottom:10px}
+.sponsor-stewards b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--leaf);margin-bottom:2px}
+.sponsor-stewards p{margin:0;font-size:12px;line-height:1.4}
+.sponsor-actions{display:flex;flex-wrap:wrap;gap:8px}
+.sponsor-actions .secondary,.sponsor-actions .button-link{flex:1;min-width:150px;margin-top:0;text-align:center}
+body[data-mode="kids"] .sponsor-tier-badge{background:#fae8ff}
+
+/* Tiered tree-bed markers reflect funding/development level, not just claim status */
+.tree-marker.tier-0,.tree-marker.tier-1,.tree-marker.tier-2,.tree-marker.tier-3,.tree-marker.tier-4,.tree-marker.claimed{width:34px;height:34px;position:relative}
+.tree-marker .tier-badge{position:absolute;top:-9px;right:-9px;background:white;border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.tree-marker.claimed{background:#8fae7c;box-shadow:0 0 0 3px rgba(95,168,81,.35)}
+.tree-marker.tier-0{background:#8fae7c}
+.tree-marker.tier-1{background:#5fa851}
+.tree-marker.tier-2{background:#3f9a6b}
+.tree-marker.tier-3{background:#e879a8}
+.tree-marker.tier-4{background:linear-gradient(135deg,#f59e0b,#ec4899)}
+.tree-marker.community-added{background:#2a76e8;border-style:dashed}
+.tree-marker.community-added.park-added{background:#2f9e44}
+.tree-marker.community-added.garden-added{background:#c9852f}
+/* Only draggable while mid-placement (pending-plant) — grab cursor should
+   only ever show then, since a planted tree is permanently fixed. */
+.tree-marker.pending-plant{cursor:grab}
+.tree-marker.pending-plant:active{cursor:grabbing}
+/* Awaiting a second neighbor's confirmation — faded + dashed outline so it
+   reads as provisional on the map until verified. */
+.tree-marker.unverified{opacity:.62;box-shadow:0 0 0 2px rgba(40,40,40,.45) inset}
+
+/* Find the next tree — mystery-marker ID game */
+.challenge{cursor:pointer}
+.challenge-dots i.miss{background:#c14b3a}
+.tree-marker.mystery{background:#6b7280;border-style:dotted;font-weight:900;color:white}
+.tree-marker.guess-correct{background:var(--leaf);font-weight:900;color:white}
+.tree-marker.guess-wrong{background:#c14b3a;font-weight:900;color:white}
+.tree-marker.missed-tree{background:#f59e0b;font-weight:900;color:white}
+.guess-feedback{font-weight:850;color:var(--forest);margin:0 0 10px}
+body[data-mode="kids"] .tree-marker.mystery{background:#a78bfa}
+
+/* Walk recording: keep a map of who you met along the way — not a fitness stat.
+   Deliberately a small, secondary control on the right stack, not a headline action. */
+.walk-score{cursor:pointer}
+.walk-hud-time,.walk-hud-obs{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;color:var(--forest)}
+.walk-hud-sep{font-size:11px;opacity:.35}
+.walk-summary{position:fixed;z-index:2200;left:50%;bottom:0;transform:translate(-50%,105%);width:min(calc(100% - 28px),440px);background:var(--cream);border-radius:24px 24px 0 0;padding:20px 22px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -16px 45px rgba(12,45,29,.25);transition:transform .3s cubic-bezier(.2,.8,.2,1);text-align:center}
+.walk-summary.open{transform:translate(-50%,0)}
+.walk-summary h3{margin:6px 0 4px;font-size:22px}
+.walk-summary p{margin:0 0 16px;opacity:.65;font-size:13px}
+.walk-summary .primary,.walk-summary .secondary{margin-top:8px}
+
+/* Rotating challenge types: self-report "found it" flow alongside the species-guess flow */
+.challenge-report-btn{grid-column:2;grid-row:1/3;border:0;border-radius:12px;padding:9px 12px;background:var(--leaf);color:white;font-weight:850;font-size:12px;cursor:pointer;white-space:nowrap}
+.challenge-report-btn:active{transform:translateY(1px)}
+
+/* Personal "fog of war": trees with at least one logged observation get a soft glow */
+.tree-marker.observed{box-shadow:0 4px 12px rgba(13,44,32,.28),0 0 0 4px rgba(53,168,83,.32)}
+
+/* End-of-walk "What did you notice?" quick tags */
+.notice-row{margin:2px 0 14px;text-align:left}
+.notice-label{font-size:12px;font-weight:850;text-transform:uppercase;letter-spacing:.08em;color:var(--leaf);margin:0 0 8px}
+.notice-chips{display:flex;gap:8px;flex-wrap:wrap}
+.notice-chip{border:1px solid rgba(22,63,43,.14);background:white;border-radius:14px;padding:8px 12px;font-size:19px;cursor:pointer;transition:transform .15s}
+.notice-chip.tapped{background:var(--lime);transform:scale(1.12);border-color:var(--leaf)}
+
+/* Field Notebook */
+.notebook-button{right:16px;bottom:176px;width:50px;height:50px;border-radius:50%;font-size:22px}
+@media(min-width:700px){.notebook-button{bottom:146px}}
+.notebook-sheet{text-align:left;max-height:82vh;overflow:auto}
+.notebook-sheet h3{text-align:left}
+.nb-subhead{margin-top:16px}
+.nb-seeds-hero{display:flex;align-items:baseline;gap:8px;background:linear-gradient(120deg,var(--forest),#1f5c3d);color:white;border-radius:16px;padding:14px 16px;margin:10px 0}
+.nb-seeds-icon{font-size:20px}
+.nb-seeds-hero b{font-size:26px;line-height:1}
+.nb-seeds-hero span{font-size:12px;opacity:.85}
+.nb-sync-cta{background:var(--cream);border-radius:14px;padding:12px 14px;margin-top:14px;text-align:left}
+.nb-sync-cta p{margin:0 0 8px;font-size:12.5px;line-height:1.45;opacity:.8}
+.nb-sync-cta button{width:100%}
+.nb-synced-note{margin-top:14px;font-size:12px;font-weight:800;color:var(--forest);text-align:center}
+.nb-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.nb-stats div{background:white;border-radius:14px;padding:10px 12px}
+.nb-stats b{display:block;font-size:19px}
+.nb-stats span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;opacity:.6}
+.nb-type-breakdown{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.nb-chip{background:white;border-radius:99px;padding:7px 12px;font-size:13px;display:flex;align-items:center;gap:6px}
+.nb-chip span{opacity:.65;font-size:11px}
+.nb-empty{font-size:13px;opacity:.6;text-align:left;margin:4px 0 0}
+.nb-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 4px}
+.nb-badge{background:white;border-radius:14px;padding:12px 6px;text-align:center;opacity:.35;filter:grayscale(1)}
+.nb-badge.earned{opacity:1;filter:none;box-shadow:0 4px 12px rgba(22,63,43,.1)}
+.nb-badge span{display:block;font-size:22px}
+.nb-badge small{display:block;font-size:9.5px;margin-top:4px;line-height:1.2}
+.walk-path{stroke:var(--forest);stroke-width:4;stroke-opacity:.85}
+.plant-confirm{position:fixed;z-index:1600;left:50%;bottom:0;transform:translate(-50%,120%);width:min(calc(100% - 28px),440px);background:var(--cream);border-radius:20px 20px 0 0;padding:16px 18px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(12,45,29,.22);transition:transform .3s cubic-bezier(.2,.8,.2,1);text-align:center}
+.plant-confirm.show{transform:translate(-50%,0)}
+.plant-confirm-title{font-weight:850;font-size:16px;margin:0 0 4px}
+.plant-confirm-copy{font-size:12.5px;opacity:.65;margin:0 0 14px;line-height:1.35}
+.plant-confirm-actions{display:flex;gap:10px;align-items:center;justify-content:center}
+.plant-confirm-actions .primary{width:auto;flex:1;padding:13px 16px;font-size:14px}
+.plant-confirm-actions .text-button{margin:0;font-size:12px;white-space:nowrap}
+body[data-mode="kids"] .plant-confirm-actions .primary{background:var(--kids-grad)}
+.tree-marker.pending-plant{animation:pending-pulse 1.4s ease-in-out infinite;border-color:#ffb020}
+.remove-tree-button{color:#b0413e;font-size:11px;opacity:.7;margin-top:6px}
+.remove-tree-button[hidden]{display:none}
+.tree-verification-status{font-size:12px;font-weight:700;text-align:center;margin:10px 0 0;color:#2f9e44}
+.tree-verification-status:has(+ .verify-tree-button:not([hidden])){color:#b07a1a}
+.tree-verification-status[hidden]{display:none}
+.verify-tree-button{width:100%;margin-top:8px}
+.verify-tree-button[hidden]{display:none}
+.plant-type-picker{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px}
+.plant-type-option{flex:1;min-width:104px;max-width:170px;padding:9px 8px;border-radius:12px;border:1.5px solid rgba(22,63,43,.18);background:white;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;white-space:nowrap}
+.plant-type-option.active{background:var(--leaf);color:white;border-color:var(--leaf)}
+.plant-place-field{margin-bottom:12px;text-align:left}
+@keyframes pending-pulse{0%,100%{box-shadow:0 4px 12px rgba(13,44,32,.28),0 0 0 0 rgba(255,176,32,.55)}50%{box-shadow:0 4px 12px rgba(13,44,32,.28),0 0 0 9px rgba(255,176,32,0)}}
+
+/* Reward moment: a brief floating "+N seeds" toast, reusable for any
+   instant-gratification moment (planting, finding, documenting). */
+.seed-reward-toast{position:fixed;z-index:3000;left:50%;top:38%;transform:translate(-50%,14px) scale(.85);background:var(--forest);color:#fff;font-weight:900;font-size:22px;letter-spacing:-.01em;padding:12px 22px;border-radius:99px;box-shadow:0 14px 34px rgba(12,45,29,.35);opacity:0;pointer-events:none;transition:opacity .32s ease,transform .32s cubic-bezier(.2,.8,.2,1)}
+.seed-reward-toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+body[data-mode="kids"] .seed-reward-toast{background:var(--kids-grad)}
+.plant-reward .plant-confirm-title{color:var(--leaf)}
+
+/* Lessons: screen-only, no-map Foundation-tier units (Meet the Trees, Read a Tree) */
+.lessons-button{left:16px;bottom:186px;width:50px;height:50px;border-radius:50%;font-size:22px;display:none}
+body[data-mode="kids"] .lessons-button{display:grid;place-items:center;background:var(--kids-grad);color:white;box-shadow:0 8px 22px rgba(139,60,224,.4)}
+.lessons-button-label{position:fixed;z-index:850;left:72px;bottom:199px;display:none;background:white;color:var(--forest);font-weight:900;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:99px;box-shadow:0 4px 12px rgba(18,49,38,.18);pointer-events:none;white-space:nowrap}
+body[data-mode="kids"] .lessons-button-label{display:block}
+@media(min-width:700px){.lessons-button{bottom:156px}.lessons-button-label{bottom:169px}}
+.lessons-picker-intro{font-size:13px;line-height:1.45;opacity:.7;text-align:center;margin:0 0 16px}
+.lessons-unit-list{display:grid;gap:10px}
+.lessons-unit-card{display:block;width:100%;text-align:left;border:1px solid rgba(22,63,43,.14);background:white;border-radius:16px;padding:14px 16px;cursor:pointer;font:inherit;color:inherit}
+.lessons-unit-card b{display:block;font-size:16px}
+.lessons-unit-card span{display:block;font-size:12px;opacity:.65;margin-top:3px}
+.lessons-card-best{display:block;font-size:11px;font-weight:800;color:var(--leaf);margin-top:6px}
+body[data-mode="kids"] .lessons-unit-card{border-color:#e9d5ff}
+body[data-mode="kids"] .lessons-card-best{color:#ec4899}
+.lessons-progress-label{text-align:center;font-size:11px;font-weight:800;opacity:.6;margin:0 0 18px}
+.lessons-prompt{text-align:center;font-size:17px;font-weight:800;margin:0 0 14px}
+.lessons-leaf-frame{width:180px;height:160px;margin:0 auto 16px;border-radius:20px;overflow:hidden;background:#f8f3e5;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(22,63,43,.08)}
+.lessons-leaf-frame img{width:100%;height:100%;object-fit:contain}
+.lessons-fact{margin:0 0 16px;padding:14px 16px;background:white;border-radius:16px;font-size:15px;font-style:italic;line-height:1.4;box-shadow:0 3px 10px rgba(22,63,43,.06)}
+.lessons-options{display:grid;gap:10px;margin-bottom:14px}
+.lessons-option{border:1.5px solid rgba(22,63,43,.18);background:white;border-radius:14px;padding:13px 14px;font:inherit;font-size:14px;font-weight:800;color:var(--forest);cursor:pointer;text-align:center}
+.lessons-option:disabled{cursor:default;opacity:.75}
+.lessons-option.correct{background:#e6efcb;border-color:var(--leaf);color:var(--forest)}
+.lessons-option.incorrect{background:#fbe9e7;border-color:#c14b3a;color:#b3401f}
+body[data-mode="kids"] .lessons-option{color:#7c3aed}
+body[data-mode="kids"] .lessons-option.correct{background:#fae8ff;border-color:#ec4899;color:#7c3aed}
+.lessons-feedback{font-size:14px;font-weight:700;line-height:1.4;margin:0 0 14px}
+.lessons-feedback p{margin:0 0 8px}
+.lessons-feedback p:last-child{margin-bottom:0}
+.lessons-feedback b{font-weight:800}
+.lessons-feedback.correct{color:var(--leaf)}
+.lessons-feedback.incorrect{color:#b3401f}
+.lessons-next{width:100%}
+.lessons-hint{text-align:center;font-size:12.5px;font-weight:700;opacity:.7;margin:0 0 14px}
+.lessons-hint b{color:var(--leaf);font-weight:850}
+body[data-mode="kids"] .lessons-hint b{color:#ec4899}
+
+/* Study the Trees: a flip-through teaching pass, not a quiz — no option
+   buttons, just a leaf, its name, what makes it distinct, and Back/Next. */
+.lessons-study-count{text-align:center;font-size:11px;font-weight:800;opacity:.6;margin:0 0 14px}
+.lessons-study-name{text-align:center;font-size:24px;font-weight:900;letter-spacing:-.02em;margin:0 0 4px}
+.lessons-study-shape{text-align:center;font-size:12px;font-weight:800;color:var(--leaf);text-transform:uppercase;letter-spacing:.05em;margin:0 0 14px}
+body[data-mode="kids"] .lessons-study-shape{color:#ec4899}
+.lessons-study-blurb{font-size:15px;line-height:1.5;margin:0 0 14px;padding:14px 16px;background:white;border-radius:16px;box-shadow:0 3px 10px rgba(22,63,43,.06)}
+.lessons-study-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 0 18px}
+.lessons-study-tags span{background:#e6efcb;color:var(--forest);border-radius:99px;padding:5px 11px;font-size:11px;font-weight:800}
+body[data-mode="kids"] .lessons-study-tags span{background:#fae8ff;color:#7c3aed}
+.lessons-study-nav{display:flex;gap:10px}
+.lessons-study-nav button{flex:1;margin-top:0}
+.lessons-study-nav button:disabled{opacity:.35;cursor:default}
+
+/* One-species deep dive (London planetree, 2026-08-19; reworked same night
+   after the first text-only pass was rejected as generic copy — bark and
+   fruit are now real photos with a one-line caption, not paragraphs). */
+.lessons-deepdive-toggle{width:100%;margin:0 0 14px;background:white;border:1.5px solid rgba(22,63,43,.18);color:var(--forest);border-radius:14px;padding:12px 14px;font:inherit;font-weight:800;font-size:13px;cursor:pointer}
+body[data-mode="kids"] .lessons-deepdive-toggle{color:#7c3aed;border-color:#e9d5ff}
+
+/* Leaf → Find It bridge: the teach card's CTA out to the real map — styled
+   in --leaf (the same green as the map's mystery-hunt markers) so it reads
+   as "go outside" rather than "read more" like the deep-dive toggle above. */
+.lessons-findit{width:100%;margin:0 0 10px;background:var(--leaf);border:0;color:white;border-radius:14px;padding:13px 14px;font:inherit;font-weight:850;font-size:14px;cursor:pointer;box-shadow:0 6px 16px rgba(53,168,83,.3)}
+.lessons-findit:active{transform:translateY(1px)}
+body[data-mode="kids"] .lessons-findit{background:var(--kids-grad);box-shadow:0 6px 16px rgba(139,60,224,.35)}
+.lessons-deepdive-panel{margin:0 0 14px}
+.lessons-deepdive-photo{margin:0 0 12px;background:white;border-radius:16px;overflow:hidden;box-shadow:0 3px 10px rgba(22,63,43,.08)}
+.lessons-deepdive-photo img{width:100%;max-height:280px;object-fit:cover;display:block}
+.lessons-deepdive-caption{margin:0;padding:10px 14px 2px;font-size:14px;font-weight:700;color:var(--forest)}
+.lessons-deepdive-credit{margin:0;padding:0 14px 10px;font-size:10px;color:rgba(22,63,43,.5)}
+.lessons-deepdive-line{margin:0 0 8px;font-size:13px;line-height:1.4;padding:10px 14px;background:white;border-radius:14px;box-shadow:0 3px 10px rgba(22,63,43,.06)}
+.lessons-multitarget-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.lessons-multitarget-tile{border:1.5px solid rgba(22,63,43,.18);background:#f8f3e5;border-radius:16px;padding:10px;cursor:pointer}
+.lessons-multitarget-tile img{width:100%;height:80px;object-fit:contain;display:block}
+.lessons-multitarget-tile.correct{background:#e6efcb;border-color:var(--leaf)}
+.lessons-multitarget-tile.incorrect{background:#fbe9e7;border-color:#c14b3a}
+.lessons-multitarget-tile:disabled{cursor:default;opacity:.85}
+
+/* While a lesson round is open, hide the map chrome behind it (topbar mode
+   switch, HUD, floating buttons) — it has no business showing through a
+   full-screen modal, and on some viewports it visibly overlapped the
+   question text. */
+body.lessons-open .topbar,
+body.lessons-open .walk-score,
+body.lessons-open .locate-button,
+body.lessons-open .notebook-button,
+body.lessons-open .add-tree-button,
+body.lessons-open .challenge,
+body.lessons-open .sample-banner{display:none}
