@@ -15,6 +15,15 @@ needed to explore the map.
   <img src="docs/screenshots/deep-dive-photo.jpg" width="32%" alt="One-species deep dive with a real whole-tree photo" />
 </p>
 
+> **Looking for a few contributors.** Specifically want to hear from people into
+> **mapping**, **civic/open data**, **education content**, or **UX/accessibility** — four
+> concrete starter issues, one per area, are open right now:
+> [add a city](https://github.com/g20lab/treewalk-nyc/issues/1) ·
+> [fix a data gap](https://github.com/g20lab/treewalk-nyc/issues/2) ·
+> [add a species deep dive](https://github.com/g20lab/treewalk-nyc/issues/3) ·
+> [keyboard accessibility](https://github.com/g20lab/treewalk-nyc/issues/4).
+> See [CONTRIBUTING.md](CONTRIBUTING.md) for what "done" looks like on each.
+
 ## What's in here
 
 - **Community mode** — geolocation-driven map of real NYC street trees (NYC Parks'

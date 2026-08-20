@@ -3,6 +3,26 @@
 Thanks for taking a look — this project is young, moves fast, and issues/PRs of any
 size are welcome, from a typo fix to a new city adapter.
 
+## Looking for a few people to dig in
+
+TreeWalk is specifically looking for a handful of people who want to genuinely dig into
+one piece, not just skim the README — ideally people who know **mapping**, **civic/open
+data**, **education content**, or **UX/accessibility**. Four concrete starting points,
+one per area, are open as issues right now:
+
+| Area | Issue | What it is |
+|---|---|---|
+| 🗺️ Mapping | [Add a third city's tree data adapter](https://github.com/g20lab/treewalk-nyc/issues/1) | Extend the existing adapter pattern (NYC + Philly today) to a new city |
+| 🏛️ Civic data | [Bring tree health data to the Philadelphia adapter](https://github.com/g20lab/treewalk-nyc/issues/2) | Investigate a real open-data gap and close it |
+| 🌳 Education | [Add the real-photo deep dive for a second species](https://github.com/g20lab/treewalk-nyc/issues/3) | Extend the one-species template (London Planetree) that's already proven |
+| ♿ UX | [Keyboard accessibility pass on sheets/modals](https://github.com/g20lab/treewalk-nyc/issues/4) | Close a real, common accessibility gap |
+
+Each issue has the actual shape to build against, which files you'll touch, and what
+"done" looks like — pick whichever matches what you're into and comment on the issue to
+claim it. No formal process, no unpaid-labor pressure — genuinely just want to build
+this with people who find it interesting. Open a PR whenever it's ready; expect a real
+response (not a bot) within a few days. More [`good first issue`](https://github.com/g20lab/treewalk-nyc/labels/good%20first%20issue)-labeled issues will get added as these get picked up.
+
 ## Getting set up
 
 No build step, no package manager, no framework — it's static HTML/CSS/JS. Clone the
