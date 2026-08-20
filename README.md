@@ -6,7 +6,14 @@ the city's urban forest. It ships in two modes from the same codebase — a **Co
 mode for general exploration, tree documentation, and tree-bed stewardship, and a
 **Kids** mode built around a gamified STEAM curriculum for ages 6-11.
 
-Live app: https://superb-starship-196cd2.netlify.app/
+**Live app: https://superb-starship-196cd2.netlify.app/** — no install or signup
+needed to explore the map.
+
+<p>
+  <img src="docs/screenshots/map-live.jpg" width="32%" alt="Live map of real NYC street trees, Kids mode" />
+  <img src="docs/screenshots/kids-lesson-teach-card.jpg" width="32%" alt="Kids-mode lesson: London Planetree teach card" />
+  <img src="docs/screenshots/deep-dive-photo.jpg" width="32%" alt="One-species deep dive with a real whole-tree photo" />
+</p>
 
 ## What's in here
 
@@ -77,9 +84,9 @@ public tree data; only accounts, sync, and social features need it.
 
 This project is young and moves fast — expect some rough edges (a couple of features
 in `app.js`/`kidsLessons.js` are mid-build, and there's no automated test suite yet).
-Issues and PRs are welcome. If you're adding a city, copy the `cityAdapters.js` pattern
-(a `fetchTrees(lat, lng)` that returns the normalized tree shape) rather than special-
-casing a new dataset inside `app.js`.
+Issues and PRs are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for how to run it
+locally, what a good first PR looks like, and the ground rules for adding a city or a
+species.
 
 ## License
 
