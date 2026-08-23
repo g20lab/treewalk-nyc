@@ -21,48 +21,13 @@
     fallback: { lat: 40.7137, lng: -73.9575 },
     bounds: { latMin: 40.49, latMax: 40.92, lngMin: -74.26, lngMax: -73.68 },
     async fetchTrees(lat, lng) {
-      // NYC Parks "Forestry Tree Points" (ForMS 2.0) — the live, continuously
-      // maintained tree inventory, as of 2026-08-13 replacing the one-time
-      // 2015 Street Tree Census (uvpi-gqnh) this used to query. That dataset
-      // was an 11-year-old snapshot; whole blocks surveyed as sparse in 2015,
-      // or planted/removed since, showed up as empty on the map. This dataset
-      // is a Socrata geospatial Point column ("location"), so we use
-      // within_box() instead of plain lat/lng BETWEEN, and filter
-      // tpstructure='Full' to keep only standing living trees (it also
-      // contains retired/removed records and stumps, kept for history).
-      //
-      // Radius/limit widened 2026-08-14 (was 0.006/0.008, limit 1000) after
-      // gero compared this against the old v0.1 prototype's map, which
-      // looked like it had "so many more trees." It didn't — that prototype
-      // queried the stale 2015 census (uvpi-gqnh) across whatever the whole
-      // visible map viewport happened to be, up to 1800 results. This is
-      // still the better, continuously-updated hn5i-inap dataset — just
-      // widened to show a comparably full picture per walk-reload.
-      const latRadius = 0.012, lngRadius = 0.016;
-      const north = lat + latRadius, south = lat - latRadius;
-      const west = lng - lngRadius, east = lng + lngRadius;
-      const where = `within_box(location, ${north}, ${west}, ${south}, ${east}) AND tpstructure='Full'`;
-      const fields = "objectid,genusspecies,dbh,tpcondition,location";
-      const res = await fetch(`https://data.cityofnewyork.us/resource/hn5i-inap.json?$select=${encodeURIComponent(fields)}&$where=${encodeURIComponent(where)}&$limit=1800`);
-      if (!res.ok) throw new Error("NYC tree data unavailable");
-      const data = await res.json();
-      // genusspecies comes as "Scientific name - Common name"; genus-only or
-      // unidentified records show up as e.g. "Acer - maple" or
-      // "Unknown - Unknown" — treat "Unknown" as no species rather than
-      // showing the literal word.
-      const clean = s => {
-        const v = String(s || "").trim();
-        return v && v.toLowerCase() !== "unknown" ? v : null;
-      };
-      return data.filter(t => t.location && Array.isArray(t.location.coordinates)).map(t => {
-        const [scientific, common] = String(t.genusspecies || "").split(" - ");
-        return normalize({
-          id: `nyc-${t.objectid}`, lat: t.location.coordinates[1], lng: t.location.coordinates[0],
-          speciesCommon: clean(common) ? titleCase(common) : null, speciesScientific: clean(scientific),
-          dbh: t.dbh ? +t.dbh : null, health: t.tpcondition || null,
-          address: null, region: null, city: "nyc"
-        });
-      });
+      // NYC is TreeWalk's own municipal snapshot — see gameboard/.
+      // Do not query NYC Open Data from the phone. That API pages, throttles,
+      // and returns a different slice of a dense block on every walk.
+      if (!window.TREEWALK_GAMEBOARD || !window.TREEWALK_GAMEBOARD.fetchNyc) {
+        throw new Error("NYC gameboard client is missing");
+      }
+      return window.TREEWALK_GAMEBOARD.fetchNyc(lat, lng);
     }
   };
 

@@ -12,7 +12,7 @@ one per area, are open as issues right now:
 
 | Area | Issue | What it is |
 |---|---|---|
-| 🗺️ Mapping | [Add a third city's tree data adapter](https://github.com/g20lab/treewalk-nyc/issues/1) | Extend the existing adapter pattern (NYC + Philly today) to a new city |
+| 🗺️ Mapping | [Add a third city's tree data adapter](https://github.com/g20lab/treewalk-nyc/issues/1) | Add a new city. Leave NYC's snapshot loader alone. |
 | 🏛️ Civic data | [Bring tree health data to the Philadelphia adapter](https://github.com/g20lab/treewalk-nyc/issues/2) | Investigate a real open-data gap and close it |
 | 🌳 Education | [Add the real-photo deep dive for a second species](https://github.com/g20lab/treewalk-nyc/issues/3) | Extend the one-species template (London Planetree) that's already proven |
 | ♿ UX | [Keyboard accessibility pass on sheets/modals](https://github.com/g20lab/treewalk-nyc/issues/4) | Close a real, common accessibility gap |
@@ -29,19 +29,21 @@ No build step, no package manager, no framework — it's static HTML/CSS/JS. Clo
 repo and serve the folder over plain HTTP:
 
 ```
-python3 -m http.server 8080
+python3 gameboard/serve.py
 ```
 
-Then open `http://localhost:8080`. A couple of things to know going in:
+Then open `http://localhost:8080`. You need `gameboard/data/nyc-municipal.sqlite`
+(see [gameboard/README.md](gameboard/README.md)). A couple of things to know going in:
 
 - **Geolocation only works on `localhost` or HTTPS.** Browsers block it on a plain
   `http://` IP/hostname, so `localhost` is the one exception that lets you test the
   map locally. To test on a phone, deploy somewhere with HTTPS (Netlify, Vercel, GitHub
   Pages all work — this is a static site).
-- **No backend is required to explore Community mode's map/discovery features** — they
-  hit live public tree data directly. Accounts, cloud sync, and social features (care
-  log, reactions, verification) need a [Supabase](https://supabase.com/) project — see
-  the README's "Backend (optional)" section.
+- **NYC trees come from TreeWalk's snapshot, not from NYC Open Data.** Do not add a
+  live Socrata query for New York. Other cities may still use a live civic API until
+  they have their own snapshot. Accounts, cloud sync, and social features need a
+  [Supabase](https://supabase.com/) project — see the README's "Backend (optional)"
+  section.
 - Scripts load in a fixed order as classic `<script>` tags sharing one global scope
   (see the README's "Stack" section) — there's no module bundler, so a new file needs
   to be added to `index.html` in the right position, and any new global should avoid
@@ -64,12 +66,11 @@ size.
 
 ### Adding a city
 
-Copy the `cityAdapters.js` pattern rather than special-casing a new data source inside
-`app.js`: an adapter is just a `fetchTrees(lat, lng)` function that returns the
-normalized tree shape the rest of the app already expects (see the existing NYC and
-Philadelphia adapters for the shape). Open an issue first if you're not sure a
-candidate city's open data actually has the fields TreeWalk needs (species, lat/lng at
-minimum).
+Copy the Philadelphia adapter in `cityAdapters.js`, not the NYC one. NYC is a
+TreeWalk-owned snapshot (`gameboard/` + `gameboard-client.js`). A new city is a
+`fetchTrees(lat, lng)` function that returns the normalized tree shape. Open an
+issue first if you're not sure a candidate city's open data has species and
+coordinates. Do not "fix" NYC by pointing it back at a civic API.
 
 ### Adding/editing species content
 

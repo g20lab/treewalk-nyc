@@ -26,8 +26,8 @@ needed to explore the map.
 
 ## What's in here
 
-- **Community mode** — geolocation-driven map of real NYC street trees (NYC Parks'
-  live Forestry Tree Points dataset), marker clustering, tree detail sheets with
+- **Community mode** — geolocation-driven map of real NYC street trees from
+  TreeWalk's own municipal snapshot, marker clustering, tree detail sheets with
   species info, a "Missing Trees" mystery/find game, single- and multi-photo
   documentation, tree-bed sponsorship/funding, a shared care log, and account sync via
   Supabase.
@@ -35,9 +35,10 @@ needed to explore the map.
   one-species real-photo deep dive (whole tree, bark, fruit), and a "Leaf → Find It"
   bridge that sends a kid straight from a lesson into a live, targeted version of the
   map's find/guess game for the species they just learned.
-- **Multi-city adapter pattern** (`cityAdapters.js`) — NYC and Philadelphia are wired
-  up today; adding a city is a matter of writing one more adapter with the same
-  `fetchTrees(lat, lng)` shape.
+- **Multi-city adapter pattern** (`cityAdapters.js`) — NYC reads TreeWalk's
+  snapshot. Philadelphia still uses a live civic API. Adding another city is a
+  new adapter with the same `fetchTrees(lat, lng)` shape — do not point NYC
+  back at Open Data.
 - A **printable curriculum** (`curriculum/`) — lesson plans, ID sheets, and coloring
   sheets per species, adapted from the NYC Parks Street Tree Identification Guide.
 
@@ -48,7 +49,7 @@ order as classic `<script>` tags sharing one global scope:
 
 ```
 cityAdapters.js → curriculum.js → speciesDeepDive.js → app.js → kidsLessons.js
-  → cloud-config.js → cloud-sync.js
+  → cloud-config.js → gameboard-client.js → cloud-sync.js
 ```
 
 Map rendering is [Leaflet](https://leafletjs.com/) + `leaflet.markercluster`, loaded
@@ -63,12 +64,16 @@ stale.
 There's no build step — it's static files. Serve the folder over HTTP and open it:
 
 ```
-python3 -m http.server 8080
+python3 gameboard/serve.py
 ```
 
-Then visit `http://localhost:8080`. Geolocation requires HTTPS on a real device/host
-(browsers block it on plain HTTP except `localhost`), so a real deployment (Netlify,
-Vercel, GitHub Pages, etc.) is needed to test location features on a phone.
+Then visit `http://localhost:8080`. That server serves the site and nearby NYC
+trees from the local snapshot. `python3 -m http.server` will not load NYC trees.
+
+Geolocation requires HTTPS on a real device/host (browsers block it on plain HTTP
+except `localhost`), so a real deployment is needed to test location features on a
+phone. See [gameboard/README.md](gameboard/README.md) for the snapshot and how to
+publish it.
 
 ### Backend (optional)
 
@@ -77,14 +82,15 @@ Supabase project. `cloud-config.js` holds the project URL and a publishable
 (anon/public) key — safe to be client-side by design, since Supabase enforces access
 with Row Level Security policies, not by keeping that key secret. To run your own
 backend, point `cloud-config.js` at your own Supabase project and apply the schema
-(migrations aren't included in this repo yet — see "Contributing" below). Without a
-configured backend, Community mode's map/discovery features still work against live
-public tree data; only accounts, sync, and social features need it.
+in `gameboard/supabase.sql` plus the existing app tables. The NYC map works locally
+through `gameboard/serve.py` without Supabase. Accounts, sync, and the hosted NYC
+map need it.
 
 ## Data sources
 
-- **NYC** — [NYC Parks Forestry Tree Points](https://data.cityofnewyork.us/Environment/Forestry-Tree-Points/hn5i-inap)
-  (continuously maintained), via NYC Open Data's Socrata API.
+- **NYC** — TreeWalk snapshot of [NYC Parks Forestry Tree Points](https://data.cityofnewyork.us/Environment/Forestry-Tree-Points/hn5i-inap),
+  ingested weekly. The app does not call the Open Data API. Attribution: NYC
+  Department of Parks and Recreation. This is not the official NYC Tree Map.
 - **Philadelphia** — [Philadelphia Parks & Recreation tree inventory](https://www.opendataphilly.org/),
   via an ArcGIS FeatureServer.
 - **Species content** adapted from NYC Parks' *Street Tree Identification Guide*.
