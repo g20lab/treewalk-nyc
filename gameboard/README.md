@@ -22,7 +22,18 @@ Open `http://localhost:8080`. Nearby trees come from `/api/nyc-trees`.
 
 `python3 -m http.server` will not load NYC trees. Use `serve.py`.
 
-## Publish for the live site
+## Hosted map (the public site / your phone)
+
+The live site loads compact tiles from `gameboard/tiles/`. Those files are
+committed so Netlify can serve them. No Open Data call, no extra key.
+
+Refresh tiles after a new ingest:
+
+```
+python3 gameboard/export_tiles.py
+```
+
+## Optional: also publish to Supabase
 
 1. Run `gameboard/supabase.sql` in the Supabase SQL editor.
 2. Publish the snapshot:
