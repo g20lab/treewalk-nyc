@@ -281,8 +281,16 @@
 
   var session=null;
   var lastUnitId=null;
+  var lessonsTrigger=null;
+  var FOCUSABLE_SELECTOR='a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
   function el(id){ return document.getElementById(id); }
+
+  function lessonsFocusableElements(flow){
+    return Array.prototype.filter.call(flow.querySelectorAll(FOCUSABLE_SELECTOR),function(node){
+      return !node.hidden&&node.getAttribute('aria-hidden')!=='true'&&node.getClientRects().length>0;
+    });
+  }
 
   function refreshPickerBests(){
     var progress=loadProgress();
@@ -304,9 +312,14 @@
   function openLessonsFlow(){
     var flow=el('lessons-flow');
     if(!flow) return;
+    if(flow.hidden||!flow.classList.contains('open')) lessonsTrigger=document.activeElement;
     flow.hidden=false;
     document.body.classList.add('lessons-open');
-    requestAnimationFrame(function(){ flow.classList.add('open'); });
+    requestAnimationFrame(function(){
+      flow.classList.add('open');
+      var focusable=lessonsFocusableElements(flow);
+      if(focusable.length) focusable[0].focus();
+    });
   }
 
   function closeLessonsFlowEl(){
@@ -314,7 +327,11 @@
     if(!flow) return;
     flow.classList.remove('open');
     document.body.classList.remove('lessons-open');
-    setTimeout(function(){ flow.hidden=true; },280);
+    setTimeout(function(){
+      flow.hidden=true;
+      if(lessonsTrigger&&typeof lessonsTrigger.focus==='function') lessonsTrigger.focus();
+      lessonsTrigger=null;
+    },280);
   }
 
   function openPicker(){
@@ -328,6 +345,30 @@
 
   function closeLessons(){
     closeLessonsFlowEl();
+  }
+
+  function handleLessonsKeydown(event){
+    var flow=el('lessons-flow');
+    if(!flow||flow.hidden||!flow.classList.contains('open')) return;
+    if(event.key==='Escape'){
+      event.preventDefault();
+      closeLessons();
+      return;
+    }
+    if(event.key!=='Tab') return;
+    var focusable=lessonsFocusableElements(flow);
+    if(!focusable.length){ event.preventDefault(); return; }
+    var first=focusable[0],last=focusable[focusable.length-1];
+    if(event.shiftKey&&document.activeElement===first){
+      event.preventDefault();
+      last.focus();
+    }else if(!event.shiftKey&&document.activeElement===last){
+      event.preventDefault();
+      first.focus();
+    }else if(!flow.contains(document.activeElement)){
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   function backToPicker(){
@@ -701,6 +742,8 @@
     if(retryBtn) retryBtn.addEventListener('click',function(){
       if(lastUnitId) startUnit(lastUnitId);
     });
+
+    document.addEventListener('keydown',handleLessonsKeydown);
   });
 
   window.TREEWALK_LESSONS={UNITS:UNITS};
